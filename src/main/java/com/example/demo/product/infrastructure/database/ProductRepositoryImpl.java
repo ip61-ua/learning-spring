@@ -21,7 +21,21 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void upsert(Product product) {
-        products.add(productEntityMapper.mapToProductEntity(product));
+        var pm = productEntityMapper.mapToProductEntity(product);
+
+        var pr = products.stream()
+                .filter(pe -> pe.getId().equals(pm.getId()))
+                .findFirst()
+                .orElse(null);
+
+        if (pr == null)
+            products.add(pm);
+        else {
+            pr.setName(pm.getName());
+            pr.setDescription(pm.getDescription());
+            pr.setPrice(pm.getPrice());
+            pr.setImage(pm.getImage());
+        }
     }
 
     @Override

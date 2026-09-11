@@ -24,9 +24,7 @@ public class ProductController implements IProductApi {
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false) Integer pageSize) {
         var request = new GetAllProductsRequest();
         request.setPageSize(pageSize);
-
         var result = mediator.dispatch(request).getProducts();
-
         return ResponseEntity.ok(result.stream()
                 .map(productMapper::mapToProductDto)
                 .toList());
@@ -35,28 +33,23 @@ public class ProductController implements IProductApi {
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
         var request = new GetProductByIdRequest(id);
-
         var result = mediator.dispatch(request).getProduct();
-
         return ResponseEntity.ok(productMapper.mapToProductDto(result));
     }
 
     @PostMapping("")
     public ResponseEntity<Void> createProduct(@RequestBody ProductDto productDto) {
-
         var request = productMapper.mapToCreateProductRequest(productDto);
-
         mediator.dispatch(request);
-
         return ResponseEntity.created(URI.create("/api/v1/products/".concat(productDto.getId().toString()))).build();
-
     }
 
     @PutMapping("")
     public ResponseEntity<Void> updateProduct(@RequestBody ProductDto productDto) {
+        var request = productMapper.mapToUpdateProductRequest(productDto);
+        mediator.dispatch(request);
         return ResponseEntity.noContent().build();
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
