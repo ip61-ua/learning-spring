@@ -1,6 +1,7 @@
 package com.example.demo.product.infrastructure.api;
 
 import com.example.demo.common.mediator.Mediator;
+import com.example.demo.product.application.command.delete.DeleteProductRequest;
 import com.example.demo.product.application.query.getAll.GetAllProductsRequest;
 import com.example.demo.product.application.query.getById.GetProductByIdRequest;
 import com.example.demo.product.infrastructure.api.dto.ProductDto;
@@ -48,11 +49,14 @@ public class ProductController implements IProductApi {
     public ResponseEntity<Void> updateProduct(@RequestBody ProductDto productDto) {
         var request = productMapper.mapToUpdateProductRequest(productDto);
         mediator.dispatch(request);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.accepted().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        var request = new DeleteProductRequest();
+        request.setId(id);
+        mediator.dispatch(request);
         return ResponseEntity.noContent().build();
     }
 
