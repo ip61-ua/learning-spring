@@ -1,7 +1,8 @@
 package com.example.demo.product.application.query.getById;
 
 import com.example.demo.common.mediator.IRequestHandler;
-import com.example.demo.product.domain.ProductRepository;
+import com.example.demo.product.domain.exception.ProductNotFoundException;
+import com.example.demo.product.domain.port.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,11 @@ public class GetProductByIdHandler implements IRequestHandler<GetProductByIdRequ
 
     @Override
     public GetProductByIdResponse handle(GetProductByIdRequest request) {
+        var id = request.getId();
+
         return new GetProductByIdResponse(productRepository
-                .findById(request.getId())
-                .orElse(null));
-        //.orElseThrow(() -> new RuntimeException("Product not found")));
+                .findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(id)));
     }
 
     @Override

@@ -1,4 +1,6 @@
-package com.example.demo.product.domain;
+package com.example.demo.product.domain.port;
+
+import com.example.demo.product.domain.entity.Product;
 
 import java.util.List;
 import java.util.Optional;

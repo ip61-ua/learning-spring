@@ -1,7 +1,7 @@
 package com.example.demo.product.infrastructure.database;
 
-import com.example.demo.product.domain.Product;
-import com.example.demo.product.domain.ProductRepository;
+import com.example.demo.product.domain.entity.Product;
+import com.example.demo.product.domain.port.ProductRepository;
 import com.example.demo.product.infrastructure.database.entity.ProductEntity;
 import com.example.demo.product.infrastructure.database.mapper.IProductEntityMapper;
 import lombok.RequiredArgsConstructor;

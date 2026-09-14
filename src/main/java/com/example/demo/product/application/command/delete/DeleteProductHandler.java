@@ -1,7 +1,7 @@
 package com.example.demo.product.application.command.delete;
 
 import com.example.demo.common.mediator.IRequestHandler;
-import com.example.demo.product.domain.ProductRepository;
+import com.example.demo.product.domain.port.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class DeleteProductHandler implements IRequestHandler<DeleteProductReques
     @Override
     public Void handle(DeleteProductRequest request) {
         productRepository.deleteById(request.getId());
-        
+
         return null;
     }
 

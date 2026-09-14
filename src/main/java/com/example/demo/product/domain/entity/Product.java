@@ -1,4 +1,4 @@
-package com.example.demo.product.domain;
+package com.example.demo.product.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-
     private Long id;
     private String name;
     private String description;
