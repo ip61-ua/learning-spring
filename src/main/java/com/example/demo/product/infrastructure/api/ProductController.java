@@ -6,6 +6,7 @@ import com.example.demo.product.application.query.getAll.GetAllProductsRequest;
 import com.example.demo.product.application.query.getById.GetProductByIdRequest;
 import com.example.demo.product.infrastructure.api.dto.ProductDto;
 import com.example.demo.product.infrastructure.api.mapper.IProductMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +40,14 @@ public class ProductController implements IProductApi {
     }
 
     @PostMapping("")
-    public ResponseEntity<Void> createProduct(@RequestBody ProductDto productDto) {
+    public ResponseEntity<Void> createProduct(@RequestBody @Valid ProductDto productDto) {
         var request = productMapper.mapToCreateProductRequest(productDto);
         mediator.dispatch(request);
         return ResponseEntity.created(URI.create("/api/v1/products/".concat(productDto.getId().toString()))).build();
     }
 
     @PutMapping("")
-    public ResponseEntity<Void> updateProduct(@RequestBody ProductDto productDto) {
+    public ResponseEntity<Void> updateProduct(@RequestBody @Valid ProductDto productDto) {
         var request = productMapper.mapToUpdateProductRequest(productDto);
         mediator.dispatch(request);
         return ResponseEntity.accepted().build();
